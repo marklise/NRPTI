@@ -1,5 +1,7 @@
 const ObjectId = require('mongoose').Types.ObjectId;
 const mongodb = require('../utils/mongodb');
+const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
+const collection = db.collection('nrpti');
 
 /**
  * Builds the issuedTo.fullName string, based on the issuedTo.type field.
@@ -98,6 +100,35 @@ exports.createRecordWithFlavours = async function (args, res, next, incomingObj,
     flavours[i]._master = new ObjectId(masterRecord._id);
     promises.push(flavours[i].save());
   }
+
+  // Mine GUID logic
+  // If an _epicProjectId is provided and we find a mine that requires the project
+  // disregard incomingObj.mineGuid
+  if (incomingObj._epicProjectId) {
+    let mineBCMI = null;
+    try {
+      mineBCMI = await collection.findOne(
+        {
+          _schemaName: 'MineBCMI',
+          epicProjectIDs: { $in: [new ObjectId(incomingObj._epicProjectId)] },
+        }
+      );
+    } catch (e) {
+      return {
+        status: 'failure',
+        object: mineBCMI,
+        errorMessage: `Error getting MineBCMI: ${e.message}`
+      };
+    }
+    if (mineBCMI && mineBCMI.mineGuid) {
+      incomingObj.mineGuid = mineBCMI.mineGuid;
+    }
+  }
+
+  if (incomingObj.mineGuid) {
+    masterRecord.mineGuid = incomingObj.mineGuid;
+  }
+
   promises.push(masterRecord.save());
 
   // Attempt to save everything.
@@ -107,8 +138,6 @@ exports.createRecordWithFlavours = async function (args, res, next, incomingObj,
     result = await Promise.all(promises);
   } catch (e) {
     // Something went wrong. Attempt to clean up
-    const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
-    const collection = db.collection('nrpti');
     let orArray = [];
     for (let i = 0; i < idsToDelete.length; i++) {
       orArray.push({ _id: new ObjectId(idsToDelete[i]) });

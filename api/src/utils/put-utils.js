@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 const BusinessLogicManager = require('./business-logic-manager');
 
+const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
+const collection = db.collection('nrpti');
+
 exports.validateObjectAgainstModel = function (mongooseModel, incomingObj) {
   if (!incomingObj) {
     return;
@@ -119,6 +122,8 @@ exports.editRecordWithFlavours = async function (args, res, next, incomingObj, e
   let flavours = [];
   let flavourIds = [];
   let promises = [];
+  let masterRecord = null;
+
   // This is needed because sanitization below will remove the reference to the masterId
   const masterId = incomingObj._id;
 
@@ -168,7 +173,7 @@ exports.editRecordWithFlavours = async function (args, res, next, incomingObj, e
       } else {
         // We are adding a flavour instead of editing.
         // We need to get the existing master record.
-        const masterRecord = await this.fetchMasterForCreateFlavour(masterSchemaName, masterId, args.swagger.params.auth_payload);
+        masterRecord = await this.fetchMasterForCreateFlavour(masterSchemaName, masterId, args.swagger.params.auth_payload);
         let newFlavour = null;
         if (entry[0].includes('LNG')) {
           newFlavour = PostFunctions.createLNG(args, res, next, {
@@ -201,6 +206,53 @@ exports.editRecordWithFlavours = async function (args, res, next, incomingObj, e
 
   const MasterModel = mongoose.model(masterSchemaName);
   const updateMasterObj = editMaster(args, res, next, incomingObj, flavourIds);
+
+  // Mine GUID logic
+  // If an _epicProjectId is provided and we find a mine that requires the project
+  // disregard incomingObj.mineGuid
+  if (incomingObj._epicProjectId || incomingObj.mineGuid) {
+    // We might have the master record from creating flavours earlier.
+    if (!masterRecord) {
+      try {
+        masterRecord = await collection.findOne(
+          { _id: new ObjectId(masterId) }
+        );
+      } catch (e) {
+        return {
+          status: 'failure',
+          object: masterRecord,
+          errorMessage: `Error getting master record for mineGuid logic: ${e.message}`
+        };
+      }
+    }
+
+    // We can only edit epicProjectId/mineGuid on records with sourceSystemRef as nrpti or anything csv import
+    if (masterRecord.sourceSystemRef === 'nrpti' || masterRecord.sourceSystemRef.includes('csv')) {
+      let mineBCMI = null;
+      try {
+        mineBCMI = await collection.findOne(
+          {
+            _schemaName: 'MineBCMI',
+            epicProjectIDs: { $in: [new ObjectId(incomingObj._epicProjectId)] },
+          }
+        );
+      } catch (e) {
+        return {
+          status: 'failure',
+          object: mineBCMI,
+          errorMessage: `Error getting MineBCMI: ${e.message}`
+        };
+      }
+      if (mineBCMI && mineBCMI.mineGuid) {
+        incomingObj.mineGuid = mineBCMI.mineGuid;
+      }
+    }
+    if (incomingObj.mineGuid) {
+      updateMasterObj.mineGuid = incomingObj.mineGuid;
+    }
+  }
+
+
   promises.push(
     MasterModel.findOneAndUpdate({
       _id: masterId,
