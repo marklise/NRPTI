@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 const BusinessLogicManager = require('./business-logic-manager');
 
-const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
-const collection = db.collection('nrpti');
-
 exports.validateObjectAgainstModel = function (mongooseModel, incomingObj) {
   if (!incomingObj) {
     return;
@@ -214,7 +211,7 @@ exports.editRecordWithFlavours = async function (args, res, next, incomingObj, e
     // We might have the master record from creating flavours earlier.
     if (!masterRecord) {
       try {
-        masterRecord = await collection.findOne(
+        masterRecord = await MasterModel.findOne(
           { _id: new ObjectId(masterId) }
         );
       } catch (e) {
@@ -228,11 +225,11 @@ exports.editRecordWithFlavours = async function (args, res, next, incomingObj, e
 
     // We can only edit epicProjectId/mineGuid on records with sourceSystemRef as nrpti or anything csv import
     if (masterRecord.sourceSystemRef === 'nrpti' || masterRecord.sourceSystemRef.includes('csv')) {
+      const MineBCMI = mongoose.model('MineBCMI');
       let mineBCMI = null;
       try {
-        mineBCMI = await collection.findOne(
+        mineBCMI = await MineBCMI.findOne(
           {
-            _schemaName: 'MineBCMI',
             epicProjectIDs: { $in: [new ObjectId(incomingObj._epicProjectId)] },
           }
         );

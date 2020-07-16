@@ -1,7 +1,6 @@
-const ObjectId = require('mongoose').Types.ObjectId;
-const mongodb = require('../utils/mongodb');
-const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
-const collection = db.collection('nrpti');
+
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 /**
  * Builds the issuedTo.fullName string, based on the issuedTo.type field.
@@ -105,9 +104,10 @@ exports.createRecordWithFlavours = async function (args, res, next, incomingObj,
   // If an _epicProjectId is provided and we find a mine that requires the project
   // disregard incomingObj.mineGuid
   if (incomingObj._epicProjectId) {
+    const Model = mongoose.model(incomingObj._schemaName);
     let mineBCMI = null;
     try {
-      mineBCMI = await collection.findOne(
+      mineBCMI = await Model.findOne(
         {
           _schemaName: 'MineBCMI',
           epicProjectIDs: { $in: [new ObjectId(incomingObj._epicProjectId)] },
@@ -137,6 +137,9 @@ exports.createRecordWithFlavours = async function (args, res, next, incomingObj,
   try {
     result = await Promise.all(promises);
   } catch (e) {
+    const mongodb = require('../utils/mongodb');
+    const db = mongodb.connection.db(process.env.MONGODB_DATABASE || 'nrpti-dev');
+    const collection = db.collection('nrpti');
     // Something went wrong. Attempt to clean up
     let orArray = [];
     for (let i = 0; i < idsToDelete.length; i++) {
