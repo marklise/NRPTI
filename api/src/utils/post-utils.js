@@ -104,7 +104,7 @@ exports.createRecordWithFlavours = async function (args, res, next, incomingObj,
   // If an _epicProjectId is provided and we find a mine that requires the project
   // disregard incomingObj.mineGuid
   if (incomingObj._epicProjectId) {
-    const Model = mongoose.model(incomingObj._schemaName);
+    const Model = mongoose.model('MineBCMI');
     let mineBCMI = null;
     try {
       mineBCMI = await Model.findOne(
