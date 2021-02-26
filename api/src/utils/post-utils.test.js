@@ -116,7 +116,10 @@ describe('PostUtils', () => {
   });
 
   test('setAdditionalRoleOnRecord alters record correctly if user one of the limited admins', async () => {
-    const limitedAdmins = [utils.ApplicationRoles.ADMIN_WF, utils.ApplicationRoles.ADMIN_FLNRO, utils.ApplicationRoles.ADMIN_AGRI];
+    const limitedAdmins = [utils.ApplicationRoles.ADMIN_WF,
+                           utils.ApplicationRoles.ADMIN_FLNRO,
+                           utils.ApplicationRoles.ADMIN_AGRI,
+                           utils.ApplicationRoles.ADMIN_ALC];
 
     for (const role of limitedAdmins) {
       const record = {

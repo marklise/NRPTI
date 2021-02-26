@@ -8,6 +8,7 @@ const ApplicationRoles = {
   ADMIN_WF: 'admin:wf',
   ADMIN_FLNRO: 'admin:flnro',
   ADMIN_AGRI: 'admin:agri',
+  ADMIN_ALC: 'admin:alc',
   PUBLIC: 'public'
 };
 
@@ -23,7 +24,8 @@ exports.ApplicationAdminRoles = [
 exports.ApplicationLimitedAdminRoles = [
   ApplicationRoles.ADMIN_WF,
   ApplicationRoles.ADMIN_FLNRO,
-  ApplicationRoles.ADMIN_AGRI
+  ApplicationRoles.ADMIN_AGRI,
+  ApplicationRoles.ADMIN_ALC
 ]
 
 exports.KeycloakDefaultRoles = {
