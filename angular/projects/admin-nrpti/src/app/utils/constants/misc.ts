@@ -8,13 +8,15 @@ export class Constants {
     ADMIN_BCMI: 'admin:bcmi',
     ADMIN_WF: 'admin:wf',
     ADMIN_FLNRO: 'admin:flnro',
-    ADMIN_AGRI: 'admin:agri'
+    ADMIN_AGRI: 'admin:agri',
+    ADMIN_ALC: 'admin:alc'
   };
 
   public static readonly ApplicationLimitedRoles: string[] = [
     Constants.ApplicationRoles.ADMIN_WF,
     Constants.ApplicationRoles.ADMIN_FLNRO,
-    Constants.ApplicationRoles.ADMIN_AGRI
+    Constants.ApplicationRoles.ADMIN_AGRI,
+    Constants.ApplicationRoles.ADMIN_ALC
   ];
 
   // Datepicker is off by one so add one to the desired year.
@@ -59,25 +61,29 @@ export class Constants {
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_WF,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_WF,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     ADMINISTRATIVE_SANCTION: {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     AGREEMENT: {
@@ -104,11 +110,13 @@ export class Constants {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     CORRESPONDENCE: {
@@ -123,12 +131,14 @@ export class Constants {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     MANAGEMENT_PLAN: {
@@ -140,13 +150,15 @@ export class Constants {
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_WF,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_WF,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     PERMIT: {
@@ -157,11 +169,13 @@ export class Constants {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     REPORT: {
@@ -176,24 +190,28 @@ export class Constants {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     },
     WARNING: {
       NRCED: [
         Constants.ApplicationRoles.ADMIN_NRCED,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ],
       LNG: [
         Constants.ApplicationRoles.ADMIN_LNG,
         Constants.ApplicationRoles.ADMIN_FLNRO,
-        Constants.ApplicationRoles.ADMIN_AGRI
+        Constants.ApplicationRoles.ADMIN_AGRI,
+        Constants.ApplicationRoles.ADMIN_ALC
       ]
     }
   };
@@ -205,6 +223,9 @@ export class Constants {
     ],
     [Constants.ApplicationRoles.ADMIN_AGRI]: [
       'Ministry of Agriculture'
+    ],
+    [Constants.ApplicationRoles.ADMIN_ALC]: [
+      'Agriculture Land Commission C&E division'
     ]
   };
 }

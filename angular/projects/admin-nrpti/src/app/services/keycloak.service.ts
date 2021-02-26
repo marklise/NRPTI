@@ -149,7 +149,8 @@ export class KeycloakService {
       roles.includes(Constants.ApplicationRoles.ADMIN_NRCED) ||
       roles.includes(Constants.ApplicationRoles.ADMIN_BCMI) ||
       roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO) ||
-      roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      roles.includes(Constants.ApplicationRoles.ADMIN_AGRI) ||
+      roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[Constants.Menus.COMMUNICATIONS] =
       roles.includes(Constants.ApplicationRoles.ADMIN) ||
@@ -174,12 +175,14 @@ export class KeycloakService {
       inBaseAdminRole(roles) ||
       roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO) ||
       roles.includes(Constants.ApplicationRoles.ADMIN_AGRI) ||
-      roles.includes(Constants.ApplicationRoles.ADMIN_WF);
+      roles.includes(Constants.ApplicationRoles.ADMIN_WF) ||
+      roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.ADMINISTRATIVE_SANCTION] =
       inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.AGREEMENT] = inBaseAdminRole(roles);
 
@@ -194,7 +197,8 @@ export class KeycloakService {
     this.menus[recordTypes.COURT_CONVICTION] =
       inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.CORRESPONDENCE] = inBaseAdminRole(roles);
 
@@ -203,7 +207,8 @@ export class KeycloakService {
     this.menus[recordTypes.INSPECTION] =
       inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.MANAGEMENT_PLAN] = inBaseAdminRole(roles);
 
@@ -211,14 +216,16 @@ export class KeycloakService {
       inBaseAdminRole(roles) ||
       roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
       || roles.includes(Constants.ApplicationRoles.ADMIN_WF)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.PERMIT] = inBaseAdminRole(roles);
 
     this.menus[recordTypes.RESTORATIVE_JUSTICE] =
       inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.REPORT] = inBaseAdminRole(roles);
 
@@ -226,11 +233,13 @@ export class KeycloakService {
 
     this.menus[recordTypes.TICKET] = inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
 
     this.menus[recordTypes.WARNING] = inBaseAdminRole(roles)
       || roles.includes(Constants.ApplicationRoles.ADMIN_FLNRO)
-      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI);
+      || roles.includes(Constants.ApplicationRoles.ADMIN_AGRI)
+      || roles.includes(Constants.ApplicationRoles.ADMIN_ALC);
   }
 
   isMenuEnabled(menuName) {
