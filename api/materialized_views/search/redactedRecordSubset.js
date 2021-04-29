@@ -24,6 +24,7 @@ async function update(defaultLog) {
     $and: [
       { $lt: ['$issuedToAge', 19] },
       { $ne: [{ $arrayElemAt: ['$fullRecord.sourceSystemRef', 0] }, 'nris-epd'] },
+      { $ne: [{ $arrayElemAt: ['$fullRecord.sourceSystemRef', 0] }, 'nris-emli'] },
       // NRPT-744 ignore ocers-csv records because they have no birthdates.  All ocers-csv
       // records are pre-redacted
       { $ne: [{ $arrayElemAt: ['$fullRecord.sourceSystemRef', 0] }, 'ocers-csv'] }
