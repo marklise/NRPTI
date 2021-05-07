@@ -8,6 +8,7 @@ exports.epicProject = require('./epicProject');
 exports.communicationPackage = require('./communicationPackage');
 exports.mapLayerInfo = require('./mapLayerInfo');
 exports.metric = require('./metric');
+exports.featureFlag = require('./featureFlag');
 
 // master
 require('./master');

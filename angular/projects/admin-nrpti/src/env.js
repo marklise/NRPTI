@@ -15,6 +15,9 @@
     window.__env.KEYCLOAK_URL = 'https://dev.oidc.gov.bc.ca/auth';
     window.__env.KEYCLOAK_REALM = '3l5nw6dk';
     window.__env.KEYCLOAK_ENABLED = true;
+    window.__env.FEATURE_FLAG = {
+      "nris-emli-importer": false
+    };
 
     // Import component defaults
     window.__env.IMPORT_TABLE_INTERVAL = 15000;

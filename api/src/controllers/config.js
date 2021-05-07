@@ -1,7 +1,10 @@
 const QueryActions = require('../utils/query-actions');
 const defaultLog   = require('../utils/logger')('record');
 const utils        = require('../utils/constants/misc');
-const { communicationPackage: CommunicationPackage }  = require('../models/index');
+const {
+  communicationPackage: CommunicationPackage,
+  featureFlag: FeatureFlag
+} = require('../models/index');
 
 exports.protectedOptions = function (args, res, next) {
   res.status(200).send();
@@ -13,7 +16,7 @@ exports.protectedOptions = function (args, res, next) {
  * @returns {object}
  */
 exports.protectedGetConfig = async function (args, res, next) {
-  console.log("Got configuration data");
+  console.log("Sent configuration data");
   let configurationData = {};
 
   configurationData['API_LOCATION'] = process.env.API_LOCATION;
@@ -29,7 +32,9 @@ exports.protectedGetConfig = async function (args, res, next) {
 
   configurationData['IMPORT_TABLE_INTERVAL'] = process.env.IMPORT_TABLE_INTERVAL;
   configurationData['DEFAULT_IMPORT_TABLE_QUERY_PARAMS'] = process.env.DEFAULT_IMPORT_TABLE_QUERY_PARAMS;
-  
+
+  configurationData['FEATURE_FLAG'] = await FeatureFlag.findOne({ _schemaName: 'FeatureFlag' });
+
   // get project specific confguration
   if (args.swagger.params.app && args.swagger.params.app.value) {
     // fetch the latest business area specific CommunicationPackage
